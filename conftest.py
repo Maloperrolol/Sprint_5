@@ -12,9 +12,7 @@ def driver():
     yield driver
     driver.quit()
 
-@pytest.fixture
-def test_user_credentials():
-    return TEST_EMAIL, TEST_PASSWORD, TEST_NAME
+
 
 @pytest.fixture
 def login_helper(driver):
