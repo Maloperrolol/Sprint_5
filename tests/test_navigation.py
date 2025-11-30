@@ -1,50 +1,68 @@
 import pytest
-from locators import StellarLocators as L
-from conftest import TEST_EMAIL, TEST_PASSWORD
-import time
+from locators import StellarLocators as L  
 from data import Data
 from tests.test_login import login_flow
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-#Переход в Личный кабинет
-def test_go_to_personal_account(driver,test_user_credentials):
-    email, password, _ = test_user_credentials
+# Переход в Личный кабинет
+def test_go_to_personal_account(driver):
+    email = Data.TEST_EMAIL
+    password = Data.TEST_PASSWORD
     driver.get(Data.STELLAR_URL)
-    driver.find_element(*L.LOGIN_IN_ACCOUNT_BTN).click()
-    login_flow(driver, email, password)
-    driver.find_element(*L.PERSONAL_ACCOUNT_BTN).click()
-    time.sleep(4)
-    assert driver.find_element(*L.EXIT_BTN).is_displayed()
-#Переход из личного кабинет в конструктор
-def test_go_to_construction_from_personal_account(driver,test_user_credentials):
-    email, password, _ = test_user_credentials
-    driver.get(Data.STELLAR_URL)
-    driver.find_element(*L.LOGIN_IN_ACCOUNT_BTN).click()
-    login_flow(driver, email, password)
-    driver.find_element(*L.PERSONAL_ACCOUNT_BTN).click()
-    time.sleep(4)
-    driver.find_element(*L.CONSTRUCTOR_BTN).click()
-    time.sleep(4)
-    assert driver.find_element(*L.BUNS_TAB).is_displayed()
 
-#Переход на логотип Stellar Burgers
-def test_go_to_logo_from_personal_account(driver,test_user_credentials):
-    email, password, _ = test_user_credentials
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.LOGIN_IN_ACCOUNT_BTN)).click()
+
+    login_flow(driver, Data.TEST_EMAIL, Data.TEST_PASSWORD)
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.PERSONAL_ACCOUNT_BTN)).click()
+
+    assert WebDriverWait(driver, 10).until(EC.visibility_of_element_located(L.EXIT_BTN)).is_displayed()
+
+
+# Переход из личного кабинета в конструктор
+def test_go_to_construction_from_personal_account(driver):
+    email = Data.TEST_EMAIL
+    password = Data.TEST_PASSWORD
     driver.get(Data.STELLAR_URL)
-    driver.find_element(*L.LOGIN_IN_ACCOUNT_BTN).click()
-    login_flow(driver, email, password)
-    driver.find_element(*L.PERSONAL_ACCOUNT_BTN).click()
-    time.sleep(4)
-    driver.find_element(*L.LOGO_BTN).click()
-    assert driver.find_element(*L.BUNS_TAB).is_displayed()
-    
-#Выход из аккаунта
-def test_go_exit_from_personal_account(driver,test_user_credentials):
-    email, password, _ = test_user_credentials
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.LOGIN_IN_ACCOUNT_BTN)).click()
+    login_flow(driver, Data.TEST_EMAIL, Data.TEST_PASSWORD)
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.PERSONAL_ACCOUNT_BTN)).click()
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.CONSTRUCTOR_BTN)).click()
+
+    assert WebDriverWait(driver, 10).until(EC.visibility_of_element_located(L.BUNS_TAB)).is_displayed()
+
+
+# Переход на логотип Stellar Burgers
+def test_go_to_logo_from_personal_account(driver):
+    email = Data.TEST_EMAIL
+    password = Data.TEST_PASSWORD
     driver.get(Data.STELLAR_URL)
-    driver.find_element(*L.LOGIN_IN_ACCOUNT_BTN).click()
-    login_flow(driver, email, password)
-    driver.find_element(*L.PERSONAL_ACCOUNT_BTN).click()
-    time.sleep(4)
-    driver.find_element(*L.EXIT_BTN).click()
-    time.sleep(4)
-    assert driver.find_element(*L.REGISTER_LINK).is_displayed()
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.LOGIN_IN_ACCOUNT_BTN)).click()
+    login_flow(driver, Data.TEST_EMAIL, Data.TEST_PASSWORD)
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.PERSONAL_ACCOUNT_BTN)).click()
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.LOGO_BTN)).click()
+
+    assert WebDriverWait(driver, 10).until(EC.visibility_of_element_located(L.BUNS_TAB)).is_displayed()
+
+
+# Выход из аккаунта
+def test_go_exit_from_personal_account(driver):
+    email = Data.TEST_EMAIL
+    password = Data.TEST_PASSWORD
+    driver.get(Data.STELLAR_URL)
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.LOGIN_IN_ACCOUNT_BTN)).click()
+    login_flow(driver, Data.TEST_EMAIL, Data.TEST_PASSWORD)
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.PERSONAL_ACCOUNT_BTN)).click()
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.EXIT_BTN)).click()
+
+    assert WebDriverWait(driver, 10).until(EC.visibility_of_element_located(L.REGISTER_LINK)).is_displayed()

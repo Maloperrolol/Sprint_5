@@ -1,11 +1,10 @@
 from locators import StellarLocators as L
 from data import Data
-from conftest import TEST_EMAIL, TEST_PASSWORD
 import time
 
 def login_flow(driver, email, password):
-    driver.find_element(*L.LOGIN_EMAIL_INPUT).send_keys(email)
-    driver.find_element(*L.LOGIN_PASSWORD_INPUT).send_keys(password)
+    driver.find_element(*L.LOGIN_EMAIL_INPUT).send_keys(Data.TEST_EMAIL)
+    driver.find_element(*L.LOGIN_PASSWORD_INPUT).send_keys(Data.TEST_PASSWORD)
     driver.find_element(*L.LOGIN_SUBMIT_BTN).click()
     time.sleep(1)
 #Вход через кнопку 'Войти в аккаунт'
