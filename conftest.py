@@ -4,10 +4,7 @@ from locators import StellarLocators as L
 import time
 
 
-#Фиксировааные тестовые данные
-TEST_EMAIL = "kirillastrakhov31123@yandex.ru"
-TEST_PASSWORD = "123456"
-TEST_NAME = "Кирилл"
+
 
 @pytest.fixture(scope="function")
 def driver():
