@@ -43,7 +43,7 @@ def test_go_to_logo_from_personal_account(driver):
     driver.get(Data.STELLAR_URL)
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.LOGIN_IN_ACCOUNT_BTN)).click()
-    login_flow(driver, Data.TEST_EMAIL, Data.TEST_PASSWORD)
+    
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable(L.PERSONAL_ACCOUNT_BTN)).click()
 
