@@ -7,23 +7,22 @@ from selenium.webdriver.support import expected_conditions as EC
 #Проверка работы вкладок конструктора
 class TestConstructorTabs:
 
-    def test_buns_cross(self, driver):
+    def test_go_to_buns_section(self, driver):
+        driver.get(Data.STELLAR_URL)
         driver.find_element(*L.SAUCES_TAB).click()
-        WebDriverWait(driver, 10).until(EC.visibility_of_element_located(*L.SAUCES_TAB))
-        driver.find_element(*L.BUNS_TAB)
-        buns_span = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(*L.BUNS_TAB))
+        driver.find_element(*L.BUNS_TAB).click()
+        WebDriverWait(driver, 10).until(EC.text_to_be_present_in_element(L.ACTIVE_TAB, "Булки"))
+        assert driver.find_element(*L.ACTIVE_TAB).text == "Булки"
 
-        assert buns_span.text == "Булки"
-
-    def test_sauces_cross(self, driver):
+    def test_go_to_sauces_section(self, driver):
+        driver.get(Data.STELLAR_URL)
         driver.find_element(*L.SAUCES_TAB).click()
-        sauces_span = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(L.SAUCES_TAB))
+        WebDriverWait(driver, 10).until(EC.text_to_be_present_in_element(L.ACTIVE_TAB, "Соусы"))
+        assert driver.find_element(*L.ACTIVE_TAB).text == "Соусы"
 
-        assert sauces_span.text == "Соусы"
-
-    def test_fillings_cross(self, driver):
+    def test_go_to_fillings_section(self, driver):
+        driver.get(Data.STELLAR_URL)
         driver.find_element(*L.FILLINGS_TAB).click()
-        fillings_span = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(L.FILLINGS_TAB))
-
-        assert fillings_span.text == "Начинки"
+        WebDriverWait(driver, 10).until(EC.text_to_be_present_in_element(L.ACTIVE_TAB, "Начинки"))
+        assert driver.find_element(*L.ACTIVE_TAB).text == "Начинки"
 
