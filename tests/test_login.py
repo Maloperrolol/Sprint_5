@@ -2,14 +2,8 @@ from locators import StellarLocators as L
 from data import Data
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from conftest import login_flow
 
-# Функция для авторизации
-def login_flow(driver, email, password):
-    wait = WebDriverWait(driver, 10)
-    wait.until(EC.visibility_of_element_located(L.LOGIN_EMAIL_INPUT)).send_keys(Data.TEST_EMAIL)
-    wait.until(EC.visibility_of_element_located(L.LOGIN_PASSWORD_INPUT)).send_keys(Data.TEST_PASSWORD)
-    wait.until(EC.element_to_be_clickable(L.LOGIN_SUBMIT_BTN)).click()
-    wait.until(EC.visibility_of_element_located(L.CONSTRUCTOR_BTN))
 
 # Вход через кнопку 'Войти в аккаунт'
 def test_login_for_main(driver):

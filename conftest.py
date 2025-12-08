@@ -1,8 +1,9 @@
 import pytest
 from selenium import webdriver
 from locators import StellarLocators as L
-import time
-
+from data import Data
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 
@@ -22,3 +23,10 @@ def login_helper(driver):
         driver.find_element(*L.LOGIN_SUBMIT_BTN).click()
         time.sleep(2)  
     return _login
+
+def login_flow(driver, email, password):
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.visibility_of_element_located(L.LOGIN_EMAIL_INPUT)).send_keys(Data.TEST_EMAIL)
+    wait.until(EC.visibility_of_element_located(L.LOGIN_PASSWORD_INPUT)).send_keys(Data.TEST_PASSWORD)
+    wait.until(EC.element_to_be_clickable(L.LOGIN_SUBMIT_BTN)).click()
+    wait.until(EC.visibility_of_element_located(L.CONSTRUCTOR_BTN))
